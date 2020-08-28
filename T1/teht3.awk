@@ -4,14 +4,14 @@ BEGIN {
     FS = ":"
 }
 
-$2 {
+$2 && FILENAME == ARGV[1] {
     headers[header_count++] = $1
 }
 
 END {
     for (i=4;i<header_count;i++) printf ";" headers[i]  # First header is row number and is left empty
     print ""
-    while( getline line < ARGV[2] )  print line
+    while( getline line < ARGV[2] )  print line  # Dump content file
 }
 
 
